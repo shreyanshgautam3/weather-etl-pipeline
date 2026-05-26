@@ -1,0 +1,11 @@
+# Python environment artifacts
+.venv/
+__pychache__
+*.pyc
+
+# Local Environment secrets
+.env
+
+# IDE configurations
+.vscode/
+.idea/
