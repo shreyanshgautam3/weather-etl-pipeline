@@ -1,11 +1,15 @@
 # Python environment artifacts
 .venv/
-__pychache__
+__pychache__/
 *.pyc
+tempCodeRunnerFile.py
 
 # Local Environment secrets
 .env
+ENV/
+env/
 
 # IDE configurations
 .vscode/
+.DS_Store
 .idea/
