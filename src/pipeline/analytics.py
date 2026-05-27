@@ -1,7 +1,7 @@
 from sqlalchemy import text
 
 def init_gold_db(engine):
-    """Initializes the Gold layer analytics summary table."""
+    # Initializes the Gold layer analytics
     create_gold_table = """
     CREATE TABLE IF NOT EXISTS gold_weather_summary (
         city VARCHAR(100),
@@ -30,13 +30,12 @@ def generate_gold_insights(engine):
             TO_TIMESTAMP(timestamp)::DATE as log_date,
             ROUND(AVG(temperature)::numeric, 2) as avg_temp,
             MAX(temperature) as max_temp,
-            MIN(temperature) as min_temp,
-            COUNT(*) as readings
+            MIN(temperature) as min_temp
         FROM weather_logs
         GROUP BY city, TO_TIMESTAMP(timestamp)::DATE
     )
-    INSERT INTO gold_weather_summary (city, date, avg_temperature, max_temperature, min_temperature, reading_count)
-    SELECT city, log_date, avg_temp, max_temp, min_temp, readings
+    INSERT INTO gold_weather_summary (city, date, avg_temperature, max_temperature, min_temperature)
+    SELECT city, log_date, avg_temp, max_temp, min_temp
     FROM aggregated_metrics
     ON CONFLICT (city, date) 
     DO UPDATE SET 
@@ -47,4 +46,4 @@ def generate_gold_insights(engine):
     """
     with engine.begin() as conn:
         result = conn.execute(text(gold_upsert_query))
-        print(f"[Gold Database] Success: Analytics views updated / materialized.")
+        print(f"[Gold Database] Success: Analytics views updated.")

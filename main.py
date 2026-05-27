@@ -16,7 +16,7 @@ def run_pipeline():
         
         # 2. SILVER LAYER: Validation & Indempotent Storage
         cleaned_record = transform_and_validate(raw_api_payload)
-        print(f"🥈 [Silver] Validated Schema: {cleaned_record.city} | {cleaned_record.temperature}°C")
+        print(f"[Silver] Validated Schema: {cleaned_record.city} | {cleaned_record.temperature}°C")
         
         # Initialize Silver DB Table & Insert Clean Data
         init_db(engine)
@@ -26,10 +26,10 @@ def run_pipeline():
         init_gold_db(engine)
         generate_gold_insights(engine)
         
-        print(f"✅ Pipeline run successfully completed for {cleaned_record.city}!")
+        print(f"Pipeline ran successfully for {cleaned_record.city}!")
 
     except Exception as e:
-        print(f"\n🚨 [Critical Pipeline Failure]: {e}")
+        print(f"\n[Critical Pipeline Failure]: {e}")
 
 if __name__ == "__main__":
     run_pipeline()
