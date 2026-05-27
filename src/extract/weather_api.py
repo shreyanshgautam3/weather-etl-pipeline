@@ -1,6 +1,9 @@
 import os
 import requests
 from typing import Dict, Any
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def fetch_weather() -> Dict[str, Any]:
     """ 
@@ -14,7 +17,6 @@ def fetch_weather() -> Dict[str, Any]:
     if not API_KEY or "your_actual_api_key" in API_KEY:
         raise ValueError("Configure a valid OPENWEATHER_API_KEY in your .env file.")
     
-    # Constructing URL safely per-execution
     url = f"https://api.openweathermap.org/data/2.5/weather"
     params = {
         "q": CITY,

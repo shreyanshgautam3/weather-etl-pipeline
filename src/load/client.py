@@ -1,6 +1,9 @@
 import os
 from sqlalchemy import create_engine, text
 from src.transform.schemas import WeatherData
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def get_db_engine():
     # Constructs and returns the database connection engine
